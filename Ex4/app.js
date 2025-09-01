@@ -24,7 +24,7 @@ app.get("/ano/:ano", (req, res) => {
 
 
 
-
+//Abrindo o servidor
 app.listen(PORT, () => {
     console.log(`Sevidor aberto em http://localhost:${PORT}`);
 })

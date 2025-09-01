@@ -16,8 +16,10 @@ app.get("/saudacao/:nome", (req, res) => {
             return res.status(200).send(`Bom dia, ${nome}`)
         } else if (hora >= 12 && hora < 19) { //Checagem de boa tarde
             return res.status(200).send(`Boa tarde, ${nome}`)
-        } else if (hora < 6 || hora >= 19) { //Checagem de boa noite
+        } else if (hora < 6 || (hora >= 19 && hora < 24)) { //Checagem de boa noite
             return res.status(200).send(`Boa noite, ${nome}`)
+        } else {
+            return res.status(400).send("Você inseriu a hora de maneira incorreta")
         }
     } catch (error) { //Caso algum erro inesperado aconteça
         console.error (error)

@@ -6,13 +6,16 @@ const PORT = 8081; //Porta do servidor
 app.get("/imc", (req, res) => {
 
     //Constantes da rota
-    const altura = parseFloat(req.query.altura);
-    const peso = parseFloat(req.query.peso);
+    const {altura, peso} = req.query;
+    
+    //Convertendo valores em float
+    alturaFloat = parseFloat(altura);
+    pesoFloat = parseFloat(peso);
 
-    let imc = peso / (altura * altura); //Váriavel de cálculo do imc
+    let imc = pesoFloat / (alturaFloat * alturaFloat); //Váriavel de cálculo do imc
 
     try { //Tentar o código
-        if (altura == undefined || isNaN(altura) || peso == undefined || isNaN(peso)) { //Checagem de erros do usuário
+        if (alturaFloat == undefined || isNaN(alturaFloat) || pesoFloat == undefined || isNaN(pesoFloat)) { //Checagem de erros do usuário
             return res.status(400).send("Você digitou alguma letra, ou esqueceu de digitar algum número")
         }
         if (imc < 18.5) { //Checagem de imc abaixo do peso

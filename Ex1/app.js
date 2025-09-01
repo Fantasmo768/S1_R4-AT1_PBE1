@@ -7,10 +7,14 @@ const PORT = 8081; //Porta do servidor
 app.get("/soma/:numUm/:numDois", (req, res) => {
 
     //Constantes dos números da url
-    const numUm= parseFloat(req.params.numUm);  
+    const numUm = parseFloat(req.params.numUm);
     const numDois = parseFloat(req.params.numDois);
 
-    const resultado = parseFloat(numUm) + parseFloat(numDois) //Constante de resultado
+    //Transformando em números
+    let num1 = parseFloat(numUm);
+    let num2 = parseFloat(numDois);
+
+    const resultado = num1 + num2; //Constante de resultado
     try { //Ele vai tentar o código
         if (isNaN(numUm) || isNaN(numDois)) { //Checagem de valores corretos
             return res.status(400).send("Você inseriu algum valor de maneira incorreta");
@@ -25,11 +29,16 @@ app.get("/soma/:numUm/:numDois", (req, res) => {
 //Rota GET subtração
 app.get("/subtracao/:numUm/:numDois", (req, res) => {
 
-    const {numUm, numDois} = req.params; //Constantes dos números da url
-    const resultado = parseFloat(numUm) - parseFloat(numDois); //Constante de resultado
+    const { numUm, numDois } = req.params; //Constantes dos números da url
+
+    //Transformando em números
+    let num1 = parseFloat(numUm);
+    let num2 = parseFloat(numDois);
+
+    const resultado = num1 - num2; //Constante de resultado
     try {
         if (isNaN(numUm) || isNaN(numDois)) { //Checagem de valores corretos
-            return res.status(400).send("Você inseriu algum valor de maneira incorreta"); 
+            return res.status(400).send("Você inseriu algum valor de maneira incorreta");
         }
         res.status(200).send(`A subtração é ${resultado}`); //Mostrando resultados
     } catch (error) { //Caso erro do servidor
@@ -41,13 +50,18 @@ app.get("/subtracao/:numUm/:numDois", (req, res) => {
 //Rota GET multiplicação
 app.get("/multiplicacao/:numUm/:numDois", (req, res) => {
 
-    const {numUm, numDois} = req.params; //Constantes dos números da url
-    const resultado = parseFloat(numUm) * parseFloat(numDois); //Constante de resultado
+    const { numUm, numDois } = req.params; //Constantes dos números da url
+
+    //Transformando em números
+    let num1 = parseFloat(numUm);
+    let num2 = parseFloat(numDois);
+
+    const resultado = num1 * num2; //Constante de resultado
     try {
         if (isNaN(numUm) || isNaN(numDois)) { //Checagem de valores corretos
-            return res.status(400).send("Você inseriu algum valor de maneira incorreta"); 
+            return res.status(400).send("Você inseriu algum valor de maneira incorreta");
         }
-        res.status(200).send(`A multiplicação é ${resultado}`); //mostrando resultados
+        res.status(200).send(`A multiplicação (aproximando com 2 casas depois da vírgula) é ${resultado.toFixed(2)}`); //mostrando resultados
     } catch (error) { //Caso erro do servidor
         return res.status(500).send("Erro ao processar a requisição");
     }
@@ -58,13 +72,18 @@ app.get("/multiplicacao/:numUm/:numDois", (req, res) => {
 app.get("/divisao/:numUm/:numDois", (req, res) => {
 
     //Declarando constantes
-    const {numUm, numDois} = req.params; //Constantes dos números da url
-    const resultado = parseFloat(numUm) / parseFloat(numDois); //Constantes da resultados
+    const { numUm, numDois } = req.params; //Constantes dos números da url
+
+    //Transformando em números
+    let num1 = parseFloat(numUm);
+    let num2 = parseFloat(numDois);
+
+    const resultado = num1 / num2; //Constantes da resultados
     try {
         if (isNaN(numUm) || isNaN(numDois) || numDois == 0) { //Checagem de valores corretos
-            return res.status(400).send("Você inseriu algum valor de maneira incorreta");
+            return res.status(400).send("Você inseriu algum valor de maneira incorreta ou tentou dividir por 0");
         }
-        res.status(200).send(`A divisão é ${resultado}`); //Mostrando resultados
+        res.status(200).send(`A divisão (aproximando com 2 casas depois da vírgula) é ${resultado.toFixed(2)}`); //Mostrando resultados
     } catch (error) { //Caso erro do servidor
         console.error(error);
         return res.status(500).send("Erro ao processar a requisição");
